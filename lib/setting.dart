@@ -1,7 +1,7 @@
 import 'package:catcare_login/setting_edit.dart';
 import 'package:flutter/material.dart';
 import 'data/profile.dart';
-import 'fund.dart';
+import 'homepage.dart';
 
 class SettingPage extends StatefulWidget {
   SettingPage(this.prof);
@@ -12,8 +12,7 @@ class SettingPage extends StatefulWidget {
   _SettingPageState createState() => new _SettingPageState();
 }
 
-class _SettingPageState extends State<SettingPage> { 
-  
+class _SettingPageState extends State<SettingPage> {
   var namectrl = TextEditingController();
   var locationctrl = TextEditingController();
   var mailctrl = TextEditingController();
@@ -25,25 +24,26 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       appBar: buildAppBar(),
       body: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(70),
-              margin: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/profile.png'),
-                ),
+          child: Column(
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(70),
+            margin: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/profile.png'),
               ),
             ),
-            buildContainer(Icons.person,namectrl,widget.prof[0].name,false),
-            buildContainer(Icons.location_on,locationctrl,widget.prof[0].location,false),
-            buildContainer(Icons.mail,mailctrl,widget.prof[0].email,false),
-            buildContainer(Icons.phone,phonectrl,widget.prof[0].phone,false),
-            buildContainer(Icons.lock,passwordctrl,widget.prof[0].password,true),
-          ],
-        )
-      ),
+          ),
+          buildContainer(Icons.person, namectrl, widget.prof[0].name, false),
+          buildContainer(
+              Icons.location_on, locationctrl, widget.prof[0].location, false),
+          buildContainer(Icons.mail, mailctrl, widget.prof[0].email, false),
+          buildContainer(Icons.phone, phonectrl, widget.prof[0].phone, false),
+          buildContainer(
+              Icons.lock, passwordctrl, widget.prof[0].password, true),
+        ],
+      )),
     );
   }
 
@@ -52,25 +52,33 @@ class _SettingPageState extends State<SettingPage> {
       preferredSize: Size.fromHeight(60.0),
       child: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white,),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => MenuPage(widget.prof)),);
-          }
-        ),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomePage(widget.prof, null)),
+              );
+            }),
         centerTitle: true,
         title: Text('Settings'),
         backgroundColor: Colors.cyan[100],
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.edit, color: Colors.white,),
-            onPressed: () => navigate()
-          ),    
+              icon: Icon(
+                Icons.edit,
+                color: Colors.white,
+              ),
+              onPressed: () => navigate()),
         ],
       ),
     );
   }
 
-  navigate() async{
+  navigate() async {
     final returnData = await Navigator.push(
       context,
       MaterialPageRoute(
@@ -80,7 +88,7 @@ class _SettingPageState extends State<SettingPage> {
       ),
     );
 
-    if (returnData != null){
+    if (returnData != null) {
       setState(() => widget.prof[0] = returnData);
     }
   }
@@ -92,8 +100,10 @@ class _SettingPageState extends State<SettingPage> {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.all(20),
-            child: Icon(icon,
-              color: Colors.grey[500],),
+            child: Icon(
+              icon,
+              color: Colors.grey[500],
+            ),
           ),
           Container(
             width: 280,
