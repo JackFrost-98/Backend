@@ -1,7 +1,7 @@
 import 'package:catcare_login/setting_edit.dart';
 import 'package:flutter/material.dart';
 import 'data/profile.dart';
-import 'homepage.dart';
+import 'menu.dart';
 
 class SettingPage extends StatefulWidget {
   SettingPage(this.prof);
@@ -60,7 +60,7 @@ class _SettingPageState extends State<SettingPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => HomePage(widget.prof, null)),
+                  builder: (context) => MenuPage(widget.prof)),
               );
             }),
         centerTitle: true,

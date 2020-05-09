@@ -1,0 +1,79 @@
+com.example.day12_login
+
+ListView.builder(
+        itemCount: post.length,
+        itemBuilder: (BuildContext context, int index){
+          return Dismissible(key: Key(post[index]), 
+            child: Card(
+              elevation: 4,
+              margin: EdgeInsets.all(8),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16)
+              ),
+              child: ListTile(
+                title: Text(post[index]),
+                trailing: IconButton(
+                  icon: Icon(
+                    Icons.delete, 
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      post.removeAt(index);
+                    });
+                  },
+                ),
+              ),
+            )
+          );
+        }
+      )
+
+------------------------------------------------------------------------------------------------------
+
+onPressed: () {
+          showDialog(
+            context: context, 
+            builder: (BuildContext context){
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)
+                ),
+                title: Text("Post Story"),
+                content: TextField(
+                  onChanged: (String value) {
+                    input = value;
+                  },
+                ),
+                actions: <Widget>[
+                  FlatButton(
+                    onPressed: () {
+                      setState((){
+                        post.add(input);
+                      });
+                      Navigator.of(context).pop();
+                    }, 
+                    child: Text("Add")
+                  ),
+                ],
+              );
+          });
+        },
+
+-----------------------------------------------------
+
+child: ListTile(
+                      title: Text(post[index]),
+                      trailing: IconButton(
+                        icon: Icon(
+                        Icons.delete, 
+                        color: Colors.red,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          post.removeAt(index);
+                        });
+                      },
+                      ),
+                      
+                    ),

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "375373400454",
+    "firebase_url": "https://catcare-6186f.firebaseio.com",
+    "project_id": "catcare-6186f",
+    "storage_bucket": "catcare-6186f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375373400454:android:93299669be3ea0abf54407",
+        "android_client_info": {
+          "package_name": "com.frostwork.catcare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375373400454-6ke922ivm5k986bjgd09io843usnsfq4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1lHYweJq6KQd4WWI0pbb34Sd_82g__18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375373400454-6ke922ivm5k986bjgd09io843usnsfq4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
