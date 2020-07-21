@@ -1,0 +1,47 @@
+##############################################################
+# Mobile Application Programming (SCSJ3623)
+# Semester 2, 2019/2020
+##############################################################
+
+# REST API Server on Local Firebase
+# @baseUrl = http://localhost:5001/helmi-backend-firebase-rest/us-central1/api
+
+# REST API Server on Live Firebase
+@baseUrl = https://us-central1-catcare-81b0d.cloudfunctions.net/api
+
+### Getting the list of quote
+GET {{baseUrl}}/users
+
+###  Getting a quote of given id
+GET {{baseUrl}}/quote/mnY7d7Qqcpx9rE4EjfP3
+
+###  Create a new quote
+POST {{baseUrl}}/quote
+Content-Type: application/json
+
+{
+    "data": "Important quote of Today",
+    "like" : 0,
+    "dislike" : 0
+}
+
+### Update the status of a given quote (whether is completed or not)
+PATCH {{baseUrl}}/quote/arMF0wRHlOrYjqfhLHL5
+Content-Type: application/json
+
+{
+    "like" : 12,
+    "dislike" : 1
+}
+
+
+### Replace the entire fields of a given quote
+PUT {{baseUrl}}/quote/arMF0wRHlOrYjqfhLHL5
+Content-Type: application/json
+
+{
+    "data": "Important quote of Today"
+}
+
+### Deleting a given quote
+DELETE {{baseUrl}}/quote/arMF0wRHlOrYjqfhLHL5
