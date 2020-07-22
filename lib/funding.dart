@@ -1,7 +1,7 @@
 import 'package:catcare_login/setting.dart';
 import 'package:flutter/material.dart';
 import 'package:catcare_login/Animation/FadeAnimation.dart';
-import 'data/profile_data.dart';
+import 'models/profile_data.dart';
 
 class PlaceholderWidgetFund extends StatelessWidget {
   PlaceholderWidgetFund();
@@ -133,7 +133,7 @@ class PlaceholderWidgetFund extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                SettingPage(prof)),
+                                                SettingPage()),
                                       );
                                     },
                                   ),
@@ -175,7 +175,7 @@ class PlaceholderWidgetFund extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              SettingPage(prof)),
+                                              SettingPage()),
                                     );
                                   },
                                 ),

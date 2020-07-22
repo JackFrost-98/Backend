@@ -1,18 +1,19 @@
+import 'package:catcare_login/services/user_dataservice.dart';
 import 'package:catcare_login/setting_edit.dart';
 import 'package:flutter/material.dart';
-import 'data/profile.dart';
+import 'models/profile.dart';
 import 'menu.dart';
 
 class SettingPage extends StatefulWidget {
-  SettingPage(this.prof);
-
-  final List<Profile> prof;
-
+  
   @override
   _SettingPageState createState() => new _SettingPageState();
 }
 
 class _SettingPageState extends State<SettingPage> {
+  Profile user;
+  final dataService = UserDataService();
+  var userID = "KhpuUfQVcLIfKrG1PaJT";
   var namectrl = TextEditingController();
   var locationctrl = TextEditingController();
   var mailctrl = TextEditingController();
@@ -21,6 +22,33 @@ class _SettingPageState extends State<SettingPage> {
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder<Profile>(
+      future: dataService.getUser(id: userID),
+      builder: (context, snapshot) {
+        if(snapshot.hasData){
+          user = snapshot.data;
+          return _buildMainScreen();
+        }
+        return _buildFetchingDataScreen();
+      });
+  }
+
+  Scaffold _buildFetchingDataScreen() {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            CircularProgressIndicator(),
+            SizedBox(height: 50),
+            Text('Fetching user profile... Please wait'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Scaffold _buildMainScreen(){
     return Scaffold(
       appBar: buildAppBar(),
       body: Container(
@@ -35,13 +63,13 @@ class _SettingPageState extends State<SettingPage> {
               ),
             ),
           ),
-          buildContainer(Icons.person, namectrl, widget.prof[0].name, false),
+          buildContainer(Icons.person, namectrl, user.name, false),
           buildContainer(
-              Icons.location_on, locationctrl, widget.prof[0].location, false),
-          buildContainer(Icons.mail, mailctrl, widget.prof[0].email, false),
-          buildContainer(Icons.phone, phonectrl, widget.prof[0].phone, false),
+              Icons.location_on, locationctrl, user.location, false),
+          buildContainer(Icons.mail, mailctrl, user.email, false),
+          buildContainer(Icons.phone, phonectrl, user.phone, false),
           buildContainer(
-              Icons.lock, passwordctrl, widget.prof[0].password, true),
+              Icons.lock, passwordctrl, user.password, true),
         ],
       )),
     );
@@ -60,7 +88,7 @@ class _SettingPageState extends State<SettingPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MenuPage(widget.prof)),
+                  builder: (context) => MenuPage(user)),
               );
             }),
         centerTitle: true,
@@ -83,13 +111,14 @@ class _SettingPageState extends State<SettingPage> {
       context,
       MaterialPageRoute(
         builder: (context) => EditSetting(
-          Profile.copy(widget.prof[0]),
+          Profile.copy(user),
+          userID,
         ),
       ),
     );
 
     if (returnData != null) {
-      setState(() => widget.prof[0] = returnData);
+      setState(() => user = returnData);
     }
   }
 

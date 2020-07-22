@@ -1,13 +1,13 @@
 import 'package:catcare_login/models/mock_posts.dart';
 import 'package:flutter/material.dart';
-import 'data/profile_data.dart';
+import 'models/profile_data.dart';
 import 'funding.dart';
-import 'data/profile.dart';
+import 'models/profile.dart';
 import 'homepage.dart';
 import 'setting.dart';
 
 class MenuPage extends StatefulWidget {
-  final List<Profile> prof;
+  final Profile prof;
   MenuPage(this.prof);
   @override
   _MenuPageState createState() => new _MenuPageState();
@@ -50,7 +50,7 @@ class _MenuPageState extends State<MenuPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => SettingPage(widget.prof)),
+                    builder: (context) => SettingPage()),
               );
             },
           ),

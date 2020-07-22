@@ -1,18 +1,20 @@
+import 'package:catcare_login/services/user_dataservice.dart';
 import 'package:flutter/material.dart';
-import 'data/profile.dart';
+import 'models/profile.dart';
 import 'setting.dart';
 
 class EditSetting extends StatefulWidget {
   final Profile profile;
+  final userID;
 
-  EditSetting(this.profile);
+  EditSetting(this.profile, this.userID);
 
   @override
   _SettingPageState createState() => new _SettingPageState();
 }
 
 class _SettingPageState extends State<EditSetting> { 
-  
+  final dataService = UserDataService();
   var namectrl = TextEditingController();
   var locationctrl = TextEditingController();
   var mailctrl = TextEditingController();
@@ -60,8 +62,9 @@ class _SettingPageState extends State<EditSetting> {
           prof.email = mailctrl.text;
           prof.phone = phonectrl.text;
           prof.password = passwordctrl.text;
-          List<Profile> profile = [prof];
-          Navigator.push(context, MaterialPageRoute(builder: (context) => SettingPage(profile)),);
+          //List<Profile> profile = [prof];
+          dataService.updateUser(id: widget.userID, user: prof);
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SettingPage()),);
         },
         child: Container(
           color: Colors.cyan[100],

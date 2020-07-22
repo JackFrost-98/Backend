@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Animation/FadeAnimation.dart';
 import 'funding.dart';
-import 'data/profile.dart';
+import 'models/profile.dart';
 import 'models/mock_posts.dart';
 import 'models/posts.dart';
 

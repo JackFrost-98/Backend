@@ -13,35 +13,30 @@
 GET {{baseUrl}}/users
 
 ###  Getting a quote of given id
-GET {{baseUrl}}/quote/mnY7d7Qqcpx9rE4EjfP3
+GET {{baseUrl}}/users/KhpuUfQVcLIfKrG1PaJT
 
 ###  Create a new quote
-POST {{baseUrl}}/quote
+POST {{baseUrl}}/users/jasm
 Content-Type: application/json
-
-{
-    "data": "Important quote of Today",
-    "like" : 0,
-    "dislike" : 0
-}
 
 ### Update the status of a given quote (whether is completed or not)
-PATCH {{baseUrl}}/quote/arMF0wRHlOrYjqfhLHL5
+PATCH {{baseUrl}}/KhpuUfQVcLIfKrG1PaJT
 Content-Type: application/json
 
 {
-    "like" : 12,
-    "dislike" : 1
+    "name": "Abu"
 }
 
 
 ### Replace the entire fields of a given quote
-PUT {{baseUrl}}/quote/arMF0wRHlOrYjqfhLHL5
+PUT {{baseUrl}}/users/KhpuUfQVcLIfKrG1PaJT
 Content-Type: application/json
 
 {
-    "data": "Important quote of Today"
+    "location":"South Africa",
+    "name":"Abul",
+    "phone":"+2018290"
 }
 
 ### Deleting a given quote
-DELETE {{baseUrl}}/quote/arMF0wRHlOrYjqfhLHL5
+DELETE {{baseUrl}}/users/YB28uLhni6it2Sr3RsHc

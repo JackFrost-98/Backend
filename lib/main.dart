@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'menu.dart';
 import 'homepage.dart';
 // import 'setting.dart';
-import 'data/profile_data.dart';
+import 'models/profile_data.dart';
 import 'models/mock_posts.dart';
 
 void main() => runApp(MaterialApp(
@@ -229,7 +229,7 @@ class MainScreen extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => MenuPage(prof)),
+                                          builder: (context) => MenuPage(prof[0])),
                                     );
                                     // Navigator.of(context).pushNamed('/menu');
                                   }),
