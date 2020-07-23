@@ -1,10 +1,11 @@
 class Profile{
-  String name, location, email, phone, password;
+  String name, location, email, phone, password, id;
 
-  Profile({this.name, this.location, this.email, this.password, this.phone});
+  Profile({this.name, this.location, this.email, this.password, this.phone, this.id});
 
   Profile.fromJson(Map<String, dynamic> json)
       : this(
+            id: json['id'],
             name: json['name'],
             location: json['location'],
             email: json['email'],
@@ -12,8 +13,8 @@ class Profile{
             password: json['password']);
   
   Map<String, dynamic> toJson() =>
-      {'name': name, 'location': location, 'email': email, 'phone': phone, 'password': password};
+      {'id': id, 'name': name, 'location': location, 'email': email, 'phone': phone, 'password': password};
 
-  Profile.copy(Profile from) : this(name: from.name, location: from.location,
+  Profile.copy(Profile from) : this(id:from.id, name: from.name, location: from.location,
     email: from.email, phone: from.phone, password: from.password);
 }

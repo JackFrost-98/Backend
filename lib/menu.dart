@@ -7,8 +7,8 @@ import 'homepage.dart';
 import 'setting.dart';
 
 class MenuPage extends StatefulWidget {
-  final Profile prof;
-  MenuPage(this.prof);
+  var userID;
+  MenuPage(this.userID);
   @override
   _MenuPageState createState() => new _MenuPageState();
 }
@@ -50,7 +50,7 @@ class _MenuPageState extends State<MenuPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => SettingPage()),
+                    builder: (context) => SettingPage(userID: widget.userID,)),
               );
             },
           ),

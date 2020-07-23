@@ -27,7 +27,7 @@ class Database {
       document.id = result.id;
       return document;
     }
-  
+    
     async getList(collection) {
       const result = await this.firestore.collection(collection).get();
   

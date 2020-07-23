@@ -27,32 +27,34 @@ class _SettingPageState extends State<EditSetting> {
     Profile prof = widget.profile;
     return Scaffold(
       appBar: buildAppBar(),
-      body: Container(
-        child: Form(
-          key: key,
-          child: Column(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.all(70),
-                margin: const EdgeInsets.all(20),
-                child: Icon(Icons.add),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.grey,
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10.0)
+      body: SingleChildScrollView(
+        child: Container(
+          child: Form(
+            key: key,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.all(70),
+                  margin: const EdgeInsets.all(20),
+                  child: Icon(Icons.add),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10.0)
+                    ),
                   ),
                 ),
-              ),
-              buildContainer(Icons.person,namectrl,prof.name,false),
-              buildContainer(Icons.location_on,locationctrl,prof.location,false),
-              buildContainer(Icons.mail,mailctrl,prof.email,false),
-              buildContainer(Icons.phone,phonectrl,prof.phone,false),
-              buildContainer(Icons.lock,passwordctrl,prof.password,true),
-            ],
-          ),
-        )
+                buildContainer(Icons.person,namectrl,prof.name,false),
+                buildContainer(Icons.location_on,locationctrl,prof.location,false),
+                buildContainer(Icons.mail,mailctrl,prof.email,false),
+                buildContainer(Icons.phone,phonectrl,prof.phone,false),
+                buildContainer(Icons.lock,passwordctrl,prof.password,true),
+              ],
+            ),
+          )
+        ),
       ),
       bottomNavigationBar: GestureDetector(
         onTap: () {
@@ -64,7 +66,7 @@ class _SettingPageState extends State<EditSetting> {
           prof.password = passwordctrl.text;
           //List<Profile> profile = [prof];
           dataService.updateUser(id: widget.userID, user: prof);
-          Navigator.push(context, MaterialPageRoute(builder: (context) => SettingPage()),);
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SettingPage(userID: widget.userID,)),);
         },
         child: Container(
           color: Colors.cyan[100],

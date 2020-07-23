@@ -1,10 +1,10 @@
 import 'package:catcare_login/Animation/FadeAnimation.dart';
+import 'package:catcare_login/services/user_dataservice.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'menu.dart';
+import 'models/profile.dart';
 import 'homepage.dart';
-// import 'setting.dart';
-import 'models/profile_data.dart';
 import 'models/mock_posts.dart';
 
 void main() => runApp(MaterialApp(
@@ -24,11 +24,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _MyAppState extends State<HomePage> {
+  Profile user;
+  final dataService = UserDataService();
+  var userID = "KhpuUfQVcLIfKrG1PaJT";
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder<Profile>(
+      future: dataService.getUser(id: userID),
+      builder: (context, snapshot) {
+        user = snapshot.data;
+        return _buildSplashScreen();
+      });
+  }
+  SplashScreen _buildSplashScreen(){
     return SplashScreen(
-      seconds: 3,
-      navigateAfterSeconds: MainScreen(),
+      seconds: 5,
+      navigateAfterSeconds: MainScreen(user),
       image: new Image.asset('assets/images/catlogo.png'),
       loadingText: Text('We Care About Cats'),
       title: Text(
@@ -53,7 +64,37 @@ class _MyAppState extends State<HomePage> {
   }
 }
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
+  final Profile user;
+  MainScreen(this.user);
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  var emailctrl = TextEditingController();
+  var passwordctrl = TextEditingController();
+  final key = GlobalKey<FormState>();
+
+  Container buildContainer(var label, var ctrl, var data, var read){
+    ctrl.text = data;
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        border: Border(
+            bottom: BorderSide(
+                color: Colors.grey[100]))),
+      child: TextFormField(
+        decoration: InputDecoration(
+          labelText: label,
+        ),
+        onSaved: (text) => data = text,
+        controller: ctrl,
+        obscureText: read,
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,30 +208,8 @@ class MainScreen extends StatelessWidget {
                                 ]),
                             child: Column(
                               children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.all(8.0),
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              color: Colors.grey[100]))),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "Email or Phone number",
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey[400])),
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "Password",
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey[400])),
-                                  ),
-                                )
+                                buildContainer("Email", emailctrl, "", false),
+                                buildContainer("Password", passwordctrl, "", true),
                               ],
                             ),
                           )),
@@ -206,10 +225,7 @@ class MainScreen extends StatelessWidget {
                                   BoxShadow(
                                     color: Colors.black26,
                                     blurRadius: 10.0,
-                                    offset: Offset(
-                                      10.0,
-                                      10.0,
-                                    ),
+                                    offset: Offset(10.0, 10.0,),
                                   ),
                                 ],
                                 borderRadius: BorderRadius.circular(10),
@@ -219,20 +235,50 @@ class MainScreen extends StatelessWidget {
                                 ])),
                             child: Center(
                               child: FlatButton(
-                                  child: Text(
-                                    "Login",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => MenuPage(prof[0])),
+                                child: Text(
+                                  "Login",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                onPressed: () {
+                                  String email = emailctrl.text;
+                                  String password = passwordctrl.text;
+                                  if(widget.user.email == email && widget.user.password == password){
+                                    Navigator.push(context, MaterialPageRoute(
+                                      // builder: (context) => AuthenticatePage(email, password)),
+                                      builder: (context) => MenuPage(widget.user.id)),
                                     );
-                                    // Navigator.of(context).pushNamed('/menu');
-                                  }),
+                                  }
+                                  else{
+                                    showDialog(
+                                      context: context, 
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context){
+                                        return AlertDialog(
+                                          title: Text("Error"),
+                                          content: SingleChildScrollView(
+                                            child: ListBody(
+                                              children: <Widget>[
+                                                Text('Authentication failed'),
+                                              ],
+                                            ),
+                                          ),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              child: Text('OK'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      }
+                                    );
+                                  }
+                                  // Navigator.of(context).pushNamed('/menu');
+                                }
+                              ),
                             ),
                           )),
                       SizedBox(

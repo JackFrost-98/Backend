@@ -5,7 +5,10 @@ import 'models/profile.dart';
 import 'menu.dart';
 
 class SettingPage extends StatefulWidget {
-  
+  final userID;
+
+  SettingPage({this.userID});
+
   @override
   _SettingPageState createState() => new _SettingPageState();
 }
@@ -13,7 +16,6 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   Profile user;
   final dataService = UserDataService();
-  var userID = "KhpuUfQVcLIfKrG1PaJT";
   var namectrl = TextEditingController();
   var locationctrl = TextEditingController();
   var mailctrl = TextEditingController();
@@ -23,7 +25,7 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Profile>(
-      future: dataService.getUser(id: userID),
+      future: dataService.getUser(id: widget.userID),
       builder: (context, snapshot) {
         if(snapshot.hasData){
           user = snapshot.data;
@@ -52,26 +54,27 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       appBar: buildAppBar(),
       body: Container(
-          child: Column(
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(70),
-            margin: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/profile.png'),
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(70),
+              margin: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/profile.png'),
+                ),
               ),
             ),
-          ),
-          buildContainer(Icons.person, namectrl, user.name, false),
-          buildContainer(
-              Icons.location_on, locationctrl, user.location, false),
-          buildContainer(Icons.mail, mailctrl, user.email, false),
-          buildContainer(Icons.phone, phonectrl, user.phone, false),
-          buildContainer(
-              Icons.lock, passwordctrl, user.password, true),
-        ],
-      )),
+            buildContainer(Icons.person, namectrl, user.name, false),
+            buildContainer(
+                Icons.location_on, locationctrl, user.location, false),
+            buildContainer(Icons.mail, mailctrl, user.email, false),
+            buildContainer(Icons.phone, phonectrl, user.phone, false),
+            buildContainer(
+                Icons.lock, passwordctrl, user.password, true),
+          ],
+        )
+      ),
     );
   }
 
@@ -112,7 +115,7 @@ class _SettingPageState extends State<SettingPage> {
       MaterialPageRoute(
         builder: (context) => EditSetting(
           Profile.copy(user),
-          userID,
+          widget.userID,
         ),
       ),
     );
